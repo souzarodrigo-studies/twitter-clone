@@ -60,6 +60,7 @@
 		5B833468260AB5F60000FD8C /* twitterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = twitterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B83346C260AB5F60000FD8C /* twitterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = twitterUITests.swift; sourceTree = "<group>"; };
 		5B83346E260AB5F60000FD8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B86BF8B260B0DF7001A128D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5BDEABB6260AD68B00EC0F2A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5BDEABBB260AD7D500EC0F2A /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		5BDEABC0260AEB5500EC0F2A /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -93,6 +94,7 @@
 		5B83343E260AB5F30000FD8C = {
 			isa = PBXGroup;
 			children = (
+				5B86BF8B260B0DF7001A128D /* README.md */,
 				5B833449260AB5F30000FD8C /* twitter */,
 				5B833460260AB5F60000FD8C /* twitterTests */,
 				5B83346B260AB5F60000FD8C /* twitterUITests */,
