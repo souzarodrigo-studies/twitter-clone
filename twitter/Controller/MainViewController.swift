@@ -9,6 +9,18 @@ import UIKit
 
 class MainViewController: UITabBarController {
     
+    // MARK: - States
+    
+    var user: User? {
+        didSet {
+            guard let navigation = viewControllers?[0] as? UINavigationController else { return }
+            guard let feedController = navigation.viewControllers.first as? FeedViewController else { return }
+            
+            feedController.user = user
+        }
+    }
+    
+    
     // MARK: - Properties
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
@@ -26,13 +38,48 @@ class MainViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        configureUI()
-        configureViewControllers()
+//        logUserOut()
+        authenticateUserAndConfigureUI()
+    }
+    
+    // MARK: - Publics
+
+    func authenticateUserAndConfigureUI() {
+        
+        if AUTH_FIREBASE.currentUser == nil {
+            DispatchQueue.main.async {
+                let navigation = UINavigationController(rootViewController: LoginViewController())
+                navigation.modalPresentationStyle = .fullScreen
+                self.present(navigation, animated: true, completion: nil)
+            }
+        } else {
+            configureViewControllers()
+            configureUI()
+            fetchUser()
+        }
+        
+    }
+        
+    // MARK: - API
+    
+    private func fetchUser() {
+        UserService.shared.fetchUser() { user in
+            self.user = user
+        }
+    }
+
+    private func logUserOut() {
+        do {
+            try AUTH_FIREBASE.signOut()
+            print("DEBUG: Did log user out ...")
+        } catch let error {
+            print("DEBUG: Failed to sign out with error \(error.localizedDescription) ...")
+        }
     }
     
     // MARK: - Selectors
     @objc func handleActionButtonTapped() {
-        print(123)
+        print("DEBUG: handleActionButtonTapped()")
     }
     
     // MARK: - Helpers
