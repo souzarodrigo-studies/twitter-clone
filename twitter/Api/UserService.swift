@@ -10,6 +10,8 @@ import Foundation
 struct UserService {
     static let shared = UserService()
     
+    // MARK: - Bussiness Logic
+    
     func fetchUser(completion: @escaping(User) -> Void) {
         guard let uid = AUTH_FIREBASE.currentUser?.uid else { return }
         

@@ -27,6 +27,15 @@ class FeedViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         configureUI()
+        fetchTweets()
+    }
+    
+    // MARK: - API
+    
+    func fetchTweets() {
+        TweetService.shared.fetchTweets { (tweets) in
+            print("Tweets is \(tweets)")
+        }
     }
     
     // MARK: - Helpers
@@ -35,6 +44,7 @@ class FeedViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         let imageView = UIImageView(image: UIImage(named: "twitter_logo_blue"))
+        imageView.setDimensions(width: 44, height: 44)
         imageView.contentMode = .scaleAspectFit
 
         navigationItem.titleView = imageView

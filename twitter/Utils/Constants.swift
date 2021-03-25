@@ -9,10 +9,11 @@ import Firebase
 import FirebaseStorage
 import FirebaseDatabase
 
-let STORAGE_FIREBASE = Storage.storage().reference()
-let STORAGE_PROFILE_IMAGES = STORAGE_FIREBASE.child("profile_images")
-
-let DATABASE_FIREBASE = Database.database().reference()
-let REFERENCE_USERS = DATABASE_FIREBASE.child("users")
-
 let AUTH_FIREBASE = Auth.auth()
+let STORAGE_FIREBASE = Storage.storage().reference()
+let DATABASE_FIREBASE = Database.database().reference()
+
+let STORAGE_PROFILE_IMAGES = STORAGE_FIREBASE.child("profile_images")
+let REFERENCE_USERS = DATABASE_FIREBASE.child("users")
+let REFERENCE_TWEETS = DATABASE_FIREBASE.child("tweets")
+

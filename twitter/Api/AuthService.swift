@@ -21,6 +21,8 @@ struct AuthService {
     
     static let shared = AuthService()
     
+    // MARK: - Bussiness Logic
+    
     func logUserIn(withEmail email: String, password: String, completion: AuthDataResultCallback?)  {
         AUTH_FIREBASE.signIn(withEmail: email, password: password, completion: completion) 
     }
