@@ -14,6 +14,10 @@ struct User {
     var profileImageUrl: URL?
     let uid: String
     
+    var isCurrentUser: Bool {
+        return AUTH_FIREBASE.currentUser?.uid == uid
+    }
+    
     init(uid: String, dictionary: [String: AnyObject]) {
         
         self.uid = uid

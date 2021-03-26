@@ -14,9 +14,11 @@ class Tweet {
     let likes: Int
     var timestamp: Date!
     let retweetCount: Int
+    let user: User
     
-    init(tweetID: String, dictionary: [String : Any]) {
+    init(user: User, tweetID: String, dictionary: [String : Any]) {
         self.tweetID = tweetID
+        self.user = user
         
         self.uid = dictionary["uid"] as? String ?? ""
         self.caption = dictionary["caption"] as? String ?? ""

@@ -21,7 +21,13 @@ struct TweetService {
                       "retweets": 0,
                       "caption": caption] as [String : Any]
         
-        REFERENCE_TWEETS.childByAutoId().updateChildValues(values, withCompletionBlock: completion)
+        let ref = REFERENCE_TWEETS.childByAutoId()
+        
+        ref.updateChildValues(values) { (err, ref) in
+            
+            guard let tweetID = ref.key else { return }
+            REFERENCE_USER_TWEETS.child(uid).updateChildValues([tweetID: 1], withCompletionBlock: completion)
+        }
     }
     
     func fetchTweets(completions: @escaping ([Tweet]) -> Void) {
@@ -31,10 +37,37 @@ struct TweetService {
             guard let dictionary = snapshot.value as? [String : Any] else { return }
             
             let tweetID = snapshot.key
-            let tweet = Tweet(tweetID: tweetID, dictionary: dictionary)
-            tweets.append(tweet)
+            guard let uid = dictionary["uid"] as? String else { return }
             
-            completions(tweets)
+            UserService.shared.fetchUser(uid: uid) { (user) in
+                
+                let tweet = Tweet(user: user, tweetID: tweetID, dictionary: dictionary)
+                tweets.append(tweet)
+                
+                completions(tweets)
+            }
+            
+        }
+    }
+    
+    func fetchTweets(forUser user: User, completions: @escaping ([Tweet]) -> Void) {
+        
+        var tweets = [Tweet]()
+        REFERENCE_USER_TWEETS.child(user.uid).observe(.childAdded) { (snapshot) in
+            let tweetID = snapshot.key
+            
+            REFERENCE_TWEETS.child(tweetID).observeSingleEvent(of: .value) { snapshot in
+                
+                guard let dictionary = snapshot.value as? [String : Any] else { return }
+                guard let uid = dictionary["uid"] as? String else { return }
+                
+                UserService.shared.fetchUser(uid: uid) { user in
+                    let tweet = Tweet(user: user, tweetID: tweetID, dictionary: dictionary)
+                    tweets.append(tweet)
+                    
+                    completions(tweets)
+                }
+            }
         }
     }
 }

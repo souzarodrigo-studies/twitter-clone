@@ -12,8 +12,7 @@ struct UserService {
     
     // MARK: - Bussiness Logic
     
-    func fetchUser(completion: @escaping(User) -> Void) {
-        guard let uid = AUTH_FIREBASE.currentUser?.uid else { return }
+    func fetchUser(uid: String, completion: @escaping(User) -> Void) {
         
         REFERENCE_USERS.child(uid).observeSingleEvent(of: .value) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }

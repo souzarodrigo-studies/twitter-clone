@@ -38,7 +38,7 @@ class MainViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-//        logUserOut()
+        logUserOut()
         authenticateUserAndConfigureUI()
     }
     
@@ -63,7 +63,9 @@ class MainViewController: UITabBarController {
     // MARK: - API
     
     private func fetchUser() {
-        UserService.shared.fetchUser() { user in
+        
+        guard let uid = AUTH_FIREBASE.currentUser?.uid else { return }
+        UserService.shared.fetchUser(uid: uid) { user in
             self.user = user
         }
     }
@@ -81,7 +83,7 @@ class MainViewController: UITabBarController {
     @objc func handleActionButtonTapped() {
         guard let user = user else { return }
         let navigation = UINavigationController(rootViewController: UploadTweetViewController(user: user))
-//        navigation.modalPresentationStyle = .fullScreen
+        navigation.modalPresentationStyle = .fullScreen
         present(navigation, animated: true, completion: nil)
     }
     
@@ -97,7 +99,7 @@ class MainViewController: UITabBarController {
         
         ///
         /// Configurações para o tab bar
-        let feed = FeedViewController()
+        let feed = FeedViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let explore = ExploreViewController()
         let notifications = NotificationsViewController()
         let conversations = ConversationsViewController()
