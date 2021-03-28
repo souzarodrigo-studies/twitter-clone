@@ -29,7 +29,7 @@ class CaptionTextView: UITextView {
         isScrollEnabled = false
         
         /// Entender porque essa constraint ta dando erro no log da aplicação
-//        heightAnchor.constraint(equalToConstant: 300).isActive = true
+        heightAnchor.constraint(equalToConstant: 200).isActive = true
         
         addSubview(placeholderLabel)
         placeholderLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 8)

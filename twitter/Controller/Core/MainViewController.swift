@@ -38,7 +38,7 @@ class MainViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        logUserOut()
+//        logUserOut()
         authenticateUserAndConfigureUI()
     }
     
@@ -82,7 +82,7 @@ class MainViewController: UITabBarController {
     // MARK: - Selectors
     @objc func handleActionButtonTapped() {
         guard let user = user else { return }
-        let navigation = UINavigationController(rootViewController: UploadTweetViewController(user: user))
+        let navigation = UINavigationController(rootViewController: UploadTweetViewController(user: user, config: .tweet))
         navigation.modalPresentationStyle = .fullScreen
         present(navigation, animated: true, completion: nil)
     }

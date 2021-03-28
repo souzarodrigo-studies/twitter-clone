@@ -38,6 +38,12 @@ class FeedViewController: UICollectionViewController {
         fetchTweets()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     // MARK: - API
     
     func fetchTweets() {
@@ -103,11 +109,14 @@ extension FeedViewController {
         
         cell.delegate = self
         cell.tweet = tweets[indexPath.row]
+        
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("DEBUG: Tweet viewers ..")
+        let tweet = tweets[indexPath.row]
+        let controller = TweetCollectionViewController(tweet: tweet)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -116,13 +125,25 @@ extension FeedViewController {
 extension FeedViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 120)
+        
+        let tweet = tweets[indexPath.row]
+        let viewModel = TweetViewModel(tweet: tweet)
+        let height = viewModel.size(forWidth: view.frame.width).height
+        
+        return CGSize(width: view.frame.width, height: height + 80)
     }
 }
 
 // MARK: - TweetCellDelegate
 
 extension FeedViewController: TweetCellDelegate {
+    
+    func handleRetweetTapped(_ cell: TweetCollectionViewCell) {
+        print("DEBUG: retweet")
+        guard let tweet = cell.tweet else { return }
+        let controller = UploadTweetViewController(user: tweet.user, config: .reply(tweet))
+        navigationController?.pushViewController(controller, animated: true)
+    }
     
     func handleProfileImageTapped(_ cell: TweetCollectionViewCell) {
         guard let user = cell.tweet?.user else { return }

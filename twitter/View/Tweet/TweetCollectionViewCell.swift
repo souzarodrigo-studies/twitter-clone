@@ -11,6 +11,7 @@ import UIKit
 
 protocol TweetCellDelegate: class {
     func handleProfileImageTapped(_ cell: TweetCollectionViewCell)
+    func handleRetweetTapped(_ cell: TweetCollectionViewCell)
 }
 
 class TweetCollectionViewCell: UICollectionViewCell {
@@ -52,7 +53,7 @@ class TweetCollectionViewCell: UICollectionViewCell {
     
     private let infoLabel = UILabel()
     
-    private let commentButton: UIButton = {
+    private lazy var commentButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "comment"), for: .normal)
         button.tintColor = .darkGray
@@ -61,7 +62,7 @@ class TweetCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    private let retweetButton: UIButton = {
+    private lazy var retweetButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "retweet"), for: .normal)
         button.tintColor = .darkGray
@@ -70,7 +71,7 @@ class TweetCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    private let likeButton: UIButton = {
+    private lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "like"), for: .normal)
         button.tintColor = .darkGray
@@ -79,7 +80,7 @@ class TweetCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    private let shareButton: UIButton = {
+    private lazy var shareButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "share"), for: .normal)
         button.tintColor = .darkGray
@@ -101,20 +102,21 @@ class TweetCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Selectors
     
-    @objc private func handleCommentTapped() {
-        
+    @objc func handleCommentTapped() {
+        print("DEBUG: handleCommentTapped")
     }
     
-    @objc private func handleRetweetTapped() {
-        
+    @objc func handleRetweetTapped() {
+        print("DEBUG: handleRetweetTapped")
+        delegate?.handleRetweetTapped(self)
     }
     
-    @objc private func handleLikeTapped() {
-        
+    @objc func handleLikeTapped() {
+        print("DEBUG: handleLikeTapped")
     }
     
-    @objc private func handleShareTapped() {
-        
+    @objc func handleShareTapped() {
+        print("DEBUG: handleShareTapped")
     }
     
     @objc private func handleProfileImageTapped() {

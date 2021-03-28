@@ -10,6 +10,7 @@ import UIKit
 // MARK: - ProfileHeaderDelegate
 protocol ProfileHeaderDelegate: class {
     func handleDismissal()
+    func handleEditProfileFollow(_ header: ProfileHeaderCollectionReusableView)
 }
 
 class ProfileHeaderCollectionReusableView: UICollectionReusableView {
@@ -61,7 +62,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         return iv
     }()
     
-    private lazy var editProfileFollowButton: UIButton = {
+    lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Loading", for: .normal)
         button.layer.borderColor = UIColor.twitterBlue.cgColor
@@ -148,7 +149,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     }
     
     @objc private func handleEditProfileFollow() {
-        
+        delegate?.handleEditProfileFollow(self)
     }
     
     @objc private func handleFollowersTapped() {
@@ -213,6 +214,9 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
         followersLabel.attributedText = viewModel.followersString
         followingLabel.attributedText = viewModel.followingString
+        
+        fullnameLabel.text = user.fullname
+        usernameLabel.text = viewModel.usernameString
     }
 }
 

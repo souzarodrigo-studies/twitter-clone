@@ -13,6 +13,8 @@ struct User {
     let username: String
     var profileImageUrl: URL?
     let uid: String
+    var isFollowed = false
+    var stats: UserRelationsStats?
     
     var isCurrentUser: Bool {
         return AUTH_FIREBASE.currentUser?.uid == uid
@@ -30,4 +32,9 @@ struct User {
             self.profileImageUrl = url
         }
     }
+}
+
+struct UserRelationsStats {
+    var followers: Int
+    var following: Int
 }
